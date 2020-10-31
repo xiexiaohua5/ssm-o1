@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.hua.ssm.mapper.CartsMapper">
+  <resultMap id="BaseResultMap" type="com.qf.hua.ssm.entity.Carts">
+    <!--@mbg.generated-->
+    <!--@Table carts-->
+    <id column="carts_id" property="cartsId" />
+    <result column="num" property="num" />
+    <result column="product_id" property="productId" />
+    <result column="user_id" property="userId" />
+    <result column="status" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    carts_id, num, product_id, user_id, `status`
+  </sql>
+
+  <insert id="insert">
+    insert into carts (num, product_id, user_id)
+    values (carts.num,carts.product_id,carts.user_id)
+  </insert>
+
+  <select id="selectByUserIdAndProductId" resultMap="BaseResultMap">
+        select c.carts_id, c.num, c.product_id, c.user_id, c.status
+        from carts c
+        where c.product_id = #{productId}
+        and c.user_id = #{userId}
+        and c.status = 0
+  </select>
+
+    <update id="updateNumByCartId">
+        update carts set
+        num = #{num}
+        where
+        carts_id = #{cartId}
+        and status = 0
+    </update>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select c.carts_id, c.num, c.product_id, c.user_id
+        from carts c
+        where c.user_id = #{userId}
+        and c.status = 0
+    </select>
+
+</mapper>

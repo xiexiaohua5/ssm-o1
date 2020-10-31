@@ -1,0 +1,46 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+  <display-name>Archetype Created Web Application</display-name>
+
+
+  <!--1 配置spring监听器-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!--2 加载spring配置文件-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <!--只会扫描resource里的文件，不扫描里面的文件夹，文件夹里面的东西也扫描不了-->
+    <!--多个的时候classpath:spring-context.xml，classpath:spring-context.xml-->
+    <!--或者是classpath:spring-*.xml-->
+    <param-value>classpath:spring-*.xml</param-value>
+    <!--会扫描resource下的所有文件-->
+    <!--<param-value>classpath*:</param-value>-->
+  </context-param>
+
+  <!--3 配置DispatcherServlet-->
+  <!--spring-mvc注册-->
+  <servlet>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <!--加载配置文件-->
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <!--springMVC的前端控制器配置为“/”时，需要在主配置文件中配置放行静态资源-->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>

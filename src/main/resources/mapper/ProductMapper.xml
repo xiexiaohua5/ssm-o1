@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.hua.ssm.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.qf.hua.ssm.entity.Product">
+    <!--@mbg.generated-->
+    <!--@Table t_product-->
+    <id column="product_id" property="productId" />
+    <result column="name" property="name" />
+    <result column="status" property="status" />
+  </resultMap>
+    <select id="selectList" resultMap="BaseResultMap">
+        select product_id,name,status
+        from t_product
+        where status = 0
+    </select>
+</mapper>
