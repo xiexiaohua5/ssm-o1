@@ -11,4 +11,9 @@ public interface CartsService {
     int saveCarts(CartsRequestParams cartsRequestParams);
 
     List<CartsVo> findAllCarts(int userId);
+
+    int removeCarts(int userId, List<Integer> productIds);
+
+    int updateNum(CartsRequestParams cartsRequestParams);
+
 }

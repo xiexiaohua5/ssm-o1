@@ -63,22 +63,39 @@ public class CartsController {
      * 为什么不用商品id是因为收藏夹是全部人共用的，
      * 只要别人的收藏夹还有这个东西，产品就一直还在
      * 当删除的是一堆东西的时候，就用list
-     * @param cartIds
+     * @param productIds
      * @return
      */
-    @PutMapping("/del")
-    public List<Carts> del(@RequestParam List<Integer> cartIds){
-        return null;
+    @RequestMapping("/del")
+    public ResponseEntity<Boolean> del(@RequestParam int userId, @RequestParam List<Integer> productIds){
+        try {
+            int i = cartsService.removeCarts(userId, productIds);
+            if (i > 0){
+                return ResponseEntity.success(true);
+            }else {
+                return ResponseEntity.error();
+            }
+        }catch (Exception e){
+            return ResponseEntity.error();
+        }
     }
 
     /**
      * 修改购物车的数量
-     * @param cartId
+     * @param
      * @return
      */
-    @PutMapping("/update")
-    public List<Carts> updateNum(@RequestParam("cartId") int cartId){
-        return null;
+    @RequestMapping("/update")
+    public ResponseEntity<Boolean> updateNum(CartsRequestParams cartsRequestParams){
+        try {
+            int i = cartsService.updateNum(cartsRequestParams);
+            if (i > 0){
+                return ResponseEntity.success(true);
+            }
+        }catch (Exception e){
+            return ResponseEntity.error();
+        }
+        return ResponseEntity.error();
     }
 }
 

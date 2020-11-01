@@ -34,8 +34,8 @@ public class ResponseEntity<T> {
 
     public static <T> ResponseEntity<T> error(){
         ResponseEntity<T> entity = new ResponseEntity();
-        entity.setMessage(ErrorStatus.SERVICE_ERROR.getMessage());
-        entity.setStatus(ErrorStatus.SERVICE_ERROR.getStatus());
+        entity.setMessage(ErrorStatus.SYS_ERROR.getMessage());
+        entity.setStatus(ErrorStatus.SYS_ERROR.getStatus());
         return entity;
 
         /*return (ResponseEntity<T>)ResponseEntity

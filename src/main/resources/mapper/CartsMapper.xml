@@ -29,8 +29,8 @@
   </select>
 
     <update id="updateNumByCartId">
-        update carts set
-        num = #{num}
+        update carts
+        set num = #{num}
         where
         carts_id = #{cartId}
         and status = 0
@@ -42,5 +42,26 @@
         where c.user_id = #{userId}
         and c.status = 0
     </select>
+
+    <update id="deleteByUserIdAndProductId">
+        update carts
+        set status = 1
+        where user_id = #{userId}
+        and product_id = #{ProductId}
+    </update>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select num, product_id, user_id
+        from carts
+        where user_id = #{userId}
+        and status = 0
+    </select>
+
+    <update id="updateNumByProductIdAndUserId" >
+        update carts
+        set num = #{num}
+        where product_id = #{productId}
+        and user_id = #{userId}
+    </update>
 
 </mapper>

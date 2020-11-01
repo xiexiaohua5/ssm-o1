@@ -14,4 +14,10 @@ public interface CartsMapper {
     int updateNumByCartId(@Param("cartId") int cart, @Param("num") int num);
 
     List<Carts> selectList(int userId);
+
+    int deleteByUserIdAndProductId(@Param("userId") int userId, @Param("ProductId") int ProductId);
+
+    Carts selectByUserId(@Param("userId") int userId);
+
+    int updateNumByProductIdAndUserId(@Param("productId") int productId, @Param("num") int num, @Param("userId") int userId);
 }

@@ -57,10 +57,49 @@ public class CartsServiceImpl implements CartsService {
         return temp;
     }
 
+    /*
+    * 查询所有的信息
+    * */
     @Override
     public List<CartsVo> findAllCarts(int uid) {
-        List<Carts> carts = cartsMapper.selectList(uid);
-        List<CartsVo> cartsVos = ColaBeanUtils.copyListProperties(carts, CartsVo::new);
+        List<CartsVo> cartsVos = null;
+        try {
+            List<Carts> carts = cartsMapper.selectList(uid);
+            cartsVos = ColaBeanUtils.copyListProperties(carts, CartsVo::new);
+        }catch (Exception e){
+            throw new ServiceException(SERVICE_ERROR.getMessage(),SERVICE_ERROR.getStatus());
+        }
         return cartsVos;
+    }
+
+    @Override
+    public int removeCarts(int userId, List<Integer> productIds) {
+        int delete = 0;
+        try {
+            for (Integer pis:productIds){
+                delete = cartsMapper.deleteByUserIdAndProductId(userId, pis);
+                if (delete > 0){
+                    return delete;
+                }
+            }
+        }catch (Exception e){
+            throw new ServiceException(SERVICE_ERROR.getMessage(),SERVICE_ERROR.getStatus());
+        }
+        return delete;
+    }
+
+    @Override
+    public int updateNum(CartsRequestParams cartsRequestParams) {
+        int temp = 0;
+        try {
+            Carts carts = cartsMapper.selectByUserId(cartsRequestParams.getUserId());
+            if (carts != null){
+                int num = carts.getNum() + cartsRequestParams.getNum();
+                temp = cartsMapper.updateNumByProductIdAndUserId(cartsRequestParams.getProductId(), num, cartsRequestParams.getUserId());
+            }
+        }catch (Exception e){
+            throw new ServiceException(SERVICE_ERROR.getMessage(),SERVICE_ERROR.getStatus());
+        }
+        return temp;
     }
 }
